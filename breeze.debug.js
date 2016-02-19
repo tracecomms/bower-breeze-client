@@ -413,7 +413,7 @@
 
 // Returns the 'libName' module if loaded or else returns undefined
   function __requireLibCore(libName) {
-    var window = global.window;
+    var window = typeof window !== 'undefined' ? window : null;
     //if (!window) return; // Must run in a browser. Todo: add commonjs support
 
     // HACKY PATCH - to get this to work in node
