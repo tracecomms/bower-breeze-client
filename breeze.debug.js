@@ -413,12 +413,12 @@
 
 // Returns the 'libName' module if loaded or else returns undefined
   function __requireLibCore(libName) {
-    var window = typeof window !== 'undefined' ? window : null;
+    var _window = typeof window !== 'undefined' ? window : null;
     //if (!window) return; // Must run in a browser. Todo: add commonjs support
 
     // HACKY PATCH - to get this to work in node
     // the libname change is to make sure it works on heroku, as heroku has 'Q' as 'q'
-    if (!window) {
+    if (!_window) {
       try {
         if (libName === 'Q') {
           libName = 'q';
@@ -430,7 +430,7 @@
     }
 
     // get library from browser globals if we can
-    var lib = window[libName];
+    var lib = _window[libName];
     if (lib) return lib;
 
     // if require exists, maybe require can get it.
@@ -439,7 +439,7 @@
     // Developer should bootstrap such that the breeze module
     // loads after all other libraries that breeze should find with this method
     // See documentation
-    var r = window.require;
+    var r = _window.require;
     if (r) { // if require exists
       if (r.defined) { // require.defined is not standard and may not exist
         // require.defined returns true if module has been loaded
